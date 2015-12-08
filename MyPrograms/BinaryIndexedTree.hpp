@@ -9,45 +9,81 @@
 #ifndef BinaryIndexedTree_hpp
 #define BinaryIndexedTree_hpp
 
-#include <stdio.h>
+#include<iostream>
 #include <vector>
-
-
-typedef int64_t Integer;
+using namespace std;
+typedef long long int Integer;
 
 class BITree{
 public:
-    BITree(Integer l, std::vector<Integer>& a): cfq(l+1, 0),v(l, 0), len(l+1){
-        for(auto x: a){
-            v.push_back(x);
+    BITree(Integer l, std::vector<Integer>& a): tree(l+1, 0),v(l, 0), len(static_cast<unsigned>(l)+1){
+        for(int i =0; i<len-1; i++){
+            v[i] = a[i];
         }
     }
     void buildBITree(){
         
-        cfq[0] = 0;
-        for(int i = 1, j; i < len-1; i++){
+        tree[0] = 0;
+        Integer val;
+        for(unsigned i = 1, j, k; i < len; i++){
             j = i;
+            val = v[j-1];
+            
             while (j<len) {
-                cfq[j] += v[j];
-                j += (~j+1); // Get Next
+                tree[j] += val;
+                k = j;
+                j += j&(~k+1); // Get Next
             }
         }
         
     }
-    void update(int idx, Integer val){
+    void update(unsigned idx, Integer val){
         
         Integer diff = (val - v[idx]);
-        int i = idx+1;
-        while (i < len) {
-            cfq[i]+= diff;
-            i+= (~i+1);
+        unsigned i = idx+1;
+        unsigned k;
+        v[idx] = val;
+        while (i < len-1) {
+            tree[i]+= diff;
+            k = i;
+            i+= i&(~k+1);
         }
     }
+    void cum_freq(int idx){
+        unsigned i = idx+1;
+        unsigned k;
+        Integer sum = 0;
+        if(i > len-1){
+            cout << "Index out of bound!" << endl;
+            return;
+        }
+        while (i > 0 ) {
+            k = i;
+            cout << "'" << i <<"'";
+            sum+= tree[i];
+            i-= i&(~k+1);
+        }
+        cout << "cumulative freq : " << sum << endl;
+    }
+    void printBIT(){
+        cout << "Freq Table : " << endl;
+        for (auto x : v){
+            cout << x << " ";
+        }
+        cout << endl;
+        cout << "CFQ Table : " << endl;
+        for (auto x : tree){
+            cout << x << " ";
+        }
+        cout << endl;
+        
+    }
+    static void Driver();
 private:
-    Integer len;
+    unsigned len;
     
     std::vector<Integer> v;
-    std::vector<Integer> cfq;
+    std::vector<Integer> tree;
 };
 
 /*{3, 2, -1, 6, 5, 4, -3, 3, 7, 2, 3}*/
