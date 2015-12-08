@@ -42,8 +42,8 @@ void KnapSack::print(){
 }
 
 void KnapSack::Driver(){
-    std::vector<int>v_wt{20, 10, 30};
-    std::vector<int>v_val{100, 130, 110};
+    std::vector<int>v_wt{20, 10, 15, 30};
+    std::vector<int>v_val{100, 130, 90, 110};
     KnapSack kp(50, v_wt, v_val, 3);
     std::cout << "Max value fro weight 50 = " << kp.solve(50, 3) << std::endl;
     kp.print();
