@@ -13,6 +13,9 @@
 
 class KnapSack{
 public:
+    KnapSack(int W, std::vector<int>&wt, std::vector<int>&val, int n){
+        
+    }
     int solve(int, int);
     void Driver();
     
