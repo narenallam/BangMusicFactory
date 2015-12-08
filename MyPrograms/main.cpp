@@ -9,10 +9,9 @@
 #include "Permutations.hpp"
 #include "reverseStackRecursive.hpp"
 #include "nstairs.hpp"
-*/
 #include "BinaryIndexedTree.hpp"
-
-
+*/
+#include "KnapSack.hpp"
 int main(int argc, const char * argv[]) {
     /*std::string s("ABCD");
     Driver(s);
@@ -24,7 +23,10 @@ int main(int argc, const char * argv[]) {
      NStairs ns;
      ns.Driver(12, 3);
      */
+    /*
     BITree::Driver();
+     */
+    KnapSack::Driver();
     return 0;
 }
 
